@@ -1,4 +1,7 @@
 package com.example.petvac.Repository;
 
-public interface VacRepository {
+import com.example.petvac.Entity.Vaccine;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VacRepository extends JpaRepository<Vaccine, String> {
 }
