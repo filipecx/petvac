@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity(name = "pets")
 @Table(name = "pets")
 
@@ -26,8 +28,7 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(Long id, String picture, String name, String race) {
-        this.id = id;
+    public Pet(String picture, String name, String race) {
         this.picture = picture;
         this.name = name;
         this.race = race;

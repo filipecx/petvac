@@ -1,9 +1,6 @@
 package com.example.petvac.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity(name = "vaccines")
 @Table(name = "vaccines")
@@ -25,14 +22,18 @@ public class Vaccine {
     @Column(name = "vetName")
     private String vetName;
 
+    @Column(name = "petName")
+    private String petName;
+
     public Vaccine() {
     }
 
-    public Vaccine(String name, String appDate, String reAppDate, String vetName) {
+    public Vaccine(String name, String appDate, String reAppDate, String vetName, String petName) {
         this.name = name;
         this.appDate = appDate;
         this.reAppDate = reAppDate;
         this.vetName = vetName;
+        this.petName = petName;
 
     }
 
@@ -74,5 +75,13 @@ public class Vaccine {
 
     public void setVetName(String vetName) {
         this.vetName = vetName;
+    }
+
+    public String getPetName(){
+        return this.petName;
+    }
+
+    public void setPetName(String petName){
+        this.petName = petName;
     }
 }
