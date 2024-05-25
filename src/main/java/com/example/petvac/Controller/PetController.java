@@ -7,6 +7,7 @@ import com.example.petvac.Repository.VacRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,16 +21,20 @@ public class PetController {
         this.vacRepository = vacRepository;
         this.petRepository = petRepository;
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity<List<Pet>> getAllPets(){
+    public ResponseEntity<List<String>> getAllPets(){
         List<Pet> petList = petRepository.findAll();
+        List<String> petsNames = new ArrayList<>();
+        for(Pet pet : petList) {
+            petsNames.add(pet.getName());
+        }
         if(petList != null){
-            return ResponseEntity.ok().body(petList);
+            return ResponseEntity.ok().body(petsNames);
         }
         return ResponseEntity.noContent().build();
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<Void> addPet(@RequestBody Pet pet){
         Pet newPet = new Pet(pet.getPicture(), pet.getName(), pet.getRace());
@@ -38,7 +43,7 @@ public class PetController {
     }
 
 
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{petName}")
     public ResponseEntity<List<Vaccine>> getAllVacs(@PathVariable String petName){
         List<Vaccine> vaccines = vacRepository.findAllByPetName(petName);
@@ -48,8 +53,8 @@ public class PetController {
         return ResponseEntity.noContent().build();
 
     }
-
-    @PostMapping("/newVac")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping("/vaccine")
     public ResponseEntity<Void> addVaccine(@RequestBody Vaccine vaccine){
         Vaccine newVac = new Vaccine(vaccine.getName(), vaccine.getAppDate(), vaccine.getReAppDate(), vaccine.getVetName(), vaccine.getPetName());
         Vaccine savedVac = vacRepository.save(newVac);
