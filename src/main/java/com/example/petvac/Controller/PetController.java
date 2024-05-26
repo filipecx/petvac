@@ -42,10 +42,15 @@ public class PetController {
         petRepository.save(newPet);
         return ResponseEntity.ok().build();
     }
-
-
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{petName}")
+    public ResponseEntity<Pet> getPet(@PathVariable String petName){
+        Pet pet = petRepository.findByName(petName);
+        return ResponseEntity.ok().body(pet);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/vaccines/{petName}")
     public ResponseEntity<List<Vaccine>> getAllVacs(@PathVariable String petName){
         List<Vaccine> vaccines = vacRepository.findAllByPetName(petName);
         if(vaccines != null){
