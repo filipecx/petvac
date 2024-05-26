@@ -23,14 +23,15 @@ public class PetController {
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity<List<String>> getAllPets(){
+    public ResponseEntity<List<Pet>> getAllPets(){
         List<Pet> petList = petRepository.findAll();
+        /*
         List<String> petsNames = new ArrayList<>();
         for(Pet pet : petList) {
             petsNames.add(pet.getName());
-        }
+        }*/
         if(petList != null){
-            return ResponseEntity.ok().body(petsNames);
+            return ResponseEntity.ok().body(petList);
         }
         return ResponseEntity.noContent().build();
     }
