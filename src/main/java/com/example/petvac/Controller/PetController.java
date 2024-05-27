@@ -60,11 +60,20 @@ public class PetController {
 
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping("/vaccine")
+    @PostMapping("/vaccines")
     public ResponseEntity<Void> addVaccine(@RequestBody Vaccine vaccine){
         Vaccine newVac = new Vaccine(vaccine.getName(), vaccine.getAppDate(), vaccine.getReAppDate(), vaccine.getVetName(), vaccine.getPetName());
         Vaccine savedVac = vacRepository.save(newVac);
 
         return ResponseEntity.ok().build();
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("/vaccines/{id}")
+    public ResponseEntity<Void> deleteVaccine(@PathVariable Long id){
+        if(vacRepository.existsById(id)){
+            vacRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
